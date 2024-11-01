@@ -1,0 +1,19 @@
+@PACKAGE_INIT@
+
+# Set the include directory path
+set(EMX_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/include/emx")
+
+# Set the library directory path
+set(EMX_LIBRARY_DIR "@CMAKE_INSTALL_PREFIX@/lib")
+
+# Provide the targets (static and shared libraries)
+find_library(EMX_STATIC_LIBRARY emxStatic PATHS ${EMX_LIBRARY_DIR})
+find_library(EMX_SHARED_LIBRARY emxShared PATHS ${EMX_LIBRARY_DIR})
+
+# Provide the variables to the dependent project
+set(EMX_LIBRARIES ${EMX_STATIC_LIBRARY} ${EMX_SHARED_LIBRARY})
+set(EMX_INCLUDE_DIRS ${EMX_INCLUDE_DIR})
+
+# Export the variables for the dependent project
+include(CMakeFindDependencyMacro)
+mark_as_advanced(EMX_LIBRARIES EMX_INCLUDE_DIRS)
