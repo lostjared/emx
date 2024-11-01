@@ -38,6 +38,7 @@ set(HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/window_const.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/window.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/argz.hpp
 )
 
 # Find SDL2 and SDL2_ttf packages
