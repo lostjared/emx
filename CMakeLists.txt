@@ -115,10 +115,10 @@ add_custom_target(uninstallddd
 set(SCROLLER_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/scroller/main.cpp)
 
 add_executable(gfx-cmp ${CMAKE_CURRENT_SOURCE_DIR}/gfx/gfx_main.cpp)
-target_link_libraries(gfx-cmp emxStatic)
+target_link_libraries(gfx-cmp emxShared)
 install(TARGETS gfx-cmp RUNTIME DESTINATION bin)
 add_executable(lvl-convert ${CMAKE_CURRENT_SOURCE_DIR}/convert/main.cpp)
-target_link_libraries(lvl-convert emxStatic)
+target_link_libraries(lvl-convert emxShared)
 install(TARGETS lvl-convert RUNTIME DESTINATION bin)  
 # Add executable target for scroller
 add_executable(scroller ${SCROLLER_SOURCE})
