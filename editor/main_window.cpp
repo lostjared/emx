@@ -17,7 +17,7 @@ MainWindow::MainWindow() {
     file_name = "Untitled.lvl";
     map_init = false;
     pos_x = pos_y = 0;
-    setGeometry(230, 10, 1280, 720+offset_y);
+    setGeometry(230, 90, 1280, 720+offset_y);
     setFixedSize(1280, 720+offset_y);
     setWindowIcon(QIcon(":/images/col1.bmp"));
     setWindowTitle(tr("Editor [Please Create/Open a Map]"));
@@ -25,7 +25,7 @@ MainWindow::MainWindow() {
     en.push_back(QImage(":/images/char.png"));
 
     tool_window = new ToolWindow(this);
-    tool_window->setGeometry(10, 10, 150, 480);
+    tool_window->setGeometry(10, 90, 150, 480);
     tool_window->show(); 
 
     connect(tool_window->camera_x, SIGNAL(valueChanged(int)), this, SLOT(cameraChanged(int)));
@@ -40,7 +40,7 @@ MainWindow::MainWindow() {
     run_window->hide();
 
     debug_window = new DebugWindow(this);
-    debug_window->setGeometry(230, 830+offset_y, 640, 320);
+    debug_window->setGeometry(230, 840+offset_y, 640, 320);
     debug_window->show();
 
     gfx_window = new GfxWindow(this);
