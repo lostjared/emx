@@ -13,7 +13,7 @@ AboutWindow::AboutWindow(QWidget *parent) : QDialog(parent) {
     QLabel *lbl_txt = new QLabel(this);
     QString text;
     QTextStream stream(&text);
-    stream << "(C) 2023 LostSideDead Software - v" << VERSION_INFO << " - GPL v3";
+    stream << "(C) 2024 LostSideDead Software - v" << VERSION_INFO << " - GPL v3";
     lbl_txt->setText(text);
     lbl_txt->setGeometry(25+64+10, 25+16, 350, 45);
     QLabel *lbl_txt2 = new QLabel(this);
