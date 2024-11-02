@@ -655,8 +655,7 @@ void MainWindow::runExec() {
            }
            QString command_string;
            QTextStream command(&command_string);
-           command << path+"/scroller -r ";
-           command << argsx[0] << "x" << argsx[1] << " ";
+           command << path+"/scroller -r " << "1280x720 ";
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->setWorkingDirectory(path+"/");
