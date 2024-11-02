@@ -18,14 +18,14 @@ OpenWindow::OpenWindow(QWidget *parent) : QDialog(parent) {
     lbl_dir->setGeometry(10, 100, 320-70, 25);
     open_gfx_box = new QComboBox(this);
     open_gfx_box->setGeometry(110, 40, 320-115-50, 25);
-    open_gfx_box->addItem(QDir::currentPath() + "/../img/level.gfx");
+    open_gfx_box->addItem(QDir::currentPath() + "/assets/img/level.gfx");
     open_gfx = new QPushButton(tr("+"), this);
     open_gfx->setGeometry(320-55, 40, 45, 25);
     open_bg_box = new QComboBox(this);
     open_bg_box->setGeometry(110, 70, 320-115-50, 25);
-    open_bg_box->addItem(QDir::currentPath() + "/../img/backgrounds/bg1.bmp");
-    open_bg_box->addItem(QDir::currentPath() + "/../img/backgrounds/bg2.bmp");
-    open_bg_box->addItem(QDir::currentPath() + "/../img/backgrounds/bg3.bmp");
+    open_bg_box->addItem(QDir::currentPath() + "/assets/img/backgrounds/bg1.bmp");
+    open_bg_box->addItem(QDir::currentPath() + "/assets/img/backgrounds/bg2.bmp");
+    open_bg_box->addItem(QDir::currentPath() + "/assets//img/backgrounds/bg3.bmp");
     open_bg = new QPushButton(tr("+"), this);
     open_bg->setGeometry(320-55,70, 45, 25);
     open_level = new QPushButton(tr(".."), this);

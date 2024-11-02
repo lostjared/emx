@@ -33,7 +33,7 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     gfx_box = new QComboBox(this);
     gfx_box->setGeometry(75, 55, 200, 25);
 
-    gfx_box->addItem(QDir::currentPath() + "/../scroller/assets/img/level.gfx");
+    gfx_box->addItem(QDir::currentPath() + "/scroller/assets/img/level.gfx");
     gfx_box->setCurrentIndex(0);
 
     page_new_gfx = new QPushButton(tr("New"), this);
