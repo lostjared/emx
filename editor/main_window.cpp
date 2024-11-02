@@ -642,28 +642,25 @@ void MainWindow::runExec() {
             proc = new QProcess(this);
             QStringList args;
             static game::Point p[] = { game::Point(640, 360), game::Point(1280, 720), game::Point(1920, 1080), game::Point(3840, 2160) };
-            args << file_name << graphics_file << run_window->exec_bg->text();
-
+            args << "-p" << (QDir::currentPath() + "/../scroller/assets") << "-l " << file_name << "-g" << graphics_file << "-b" << run_window->exec_bg->text();
+            QStringList argsx;
             if(run_window->exec_res->currentIndex() != 1) { 
                 QString coord_str;
                 QTextStream stream(&coord_str);
                 stream << p[run_window->exec_res->currentIndex()].x;
-                args << coord_str;
+                argsx << coord_str;
                 coord_str = "";
                 stream << p[run_window->exec_res->currentIndex()].y;
-                args << coord_str; 
+                argsx << coord_str; 
            }
            QString command_string;
            QTextStream command(&command_string);
-           command << path+"/test-game ";
-           for(int i = 0; i < args.size(); ++i) {
-                 command << args[i] << " ";
-           
-           }
+           command << path+"/scroller -r ";
+           command << argsx[0] << "x" << argsx[1] << " ";
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->setWorkingDirectory(path+"/");
-            proc->start(path+"/test-game", args);
+            proc->start(path+"/scroller", args);
             if(proc->waitForStarted()) {
                 run_exec->setText(tr("&Stop"));
                 debug_window->clear();

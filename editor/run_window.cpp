@@ -27,7 +27,7 @@ RunWindow::RunWindow(QWidget *parent) : QDialog(parent) {
     lbl_bg->setGeometry(10, 80, 100, 25);
     exec_bg = new QLineEdit(this);
     exec_bg->setGeometry(100, 80, 400-115, 25);
-    exec_bg->setText(QDir::currentPath() + "/../img/backgrounds/bg1.bmp");
+    exec_bg->setText(QDir::currentPath() + "../scroller/assets/img/backgrounds/bg1.bmp");
 }
 // set main window parent
 void RunWindow::setMainWindow(MainWindow *main) {
