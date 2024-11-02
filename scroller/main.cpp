@@ -57,13 +57,13 @@ int main(int argc, char **argv) {
                 }
                 break;
                 case 'l':
-                    def_level = assets_path + "/" + arg.arg_value;
+                    def_level = arg.arg_value;
                     break;
                 case 'b':
-                    background = assets_path + "/" + arg.arg_value;
+                    background = arg.arg_value;
                     break;
                 case 'g':
-                    gfx_file = assets_path + "/" + arg.arg_value;
+                    gfx_file =  arg.arg_value;
                     break;
             }
         }
@@ -76,15 +76,19 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
     }
 
-    if(gfx_file.empty() || background.empty() || def_level.empty()) {
-        std::cout << "Game: falling back on defaults\n";
-        
+
+    if(def_level.empty() || background.empty() || gfx_file.empty()) {
         def_level = assets_path + "/levels/level1.lvl";
         gfx_file = assets_path + "/img/level.gfx";
         background = assets_path + "/img/backgrounds/bg1.bmp";
+        std::cout << "Game: default filenames..\n";
     }
+
 #else
     assets_path = "/assets";
+    def_level = assets_path + "/levels/level1.lvl";
+    gfx_file = assets_path + "/img/level.gfx";
+    background = assets_path + "/img/backgrounds/bg1.bmp";
 #endif
 
     if(!game::Window::createWindow("Game", width, height)) {
