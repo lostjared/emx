@@ -641,7 +641,7 @@ void MainWindow::runExec() {
         if(proc_run == false) {
             proc = new QProcess(this);
             QStringList args;
-            args << "-p " << (QDir::currentPath() + "/assets") << " -l " << file_name << " -g " << graphics_file << " -b " << run_window->exec_bg->text();
+            args << "-p" << (QDir::currentPath() + "/assets") << "-l" << file_name << "-g" << graphics_file << "-b" << run_window->exec_bg->text();
             QStringList argsx;
             QString coord_str;
             QTextStream stream(&coord_str);
@@ -659,10 +659,16 @@ void MainWindow::runExec() {
                     argsx << "3840" << "2160";
                     break;
             } 
+
+
            QString command_string;
            QTextStream command(&command_string);
+            
             command << path+"/scroller";
             args << "-r" << argsx.at(0) + "x" + argsx.at(1);
+            for(int i = 0; i < args.length(); ++i) {
+                std::cout << args.at(i).toStdString() << " ";
+            }
             connect(proc, SIGNAL(finished(int,QProcess::ExitStatus)),this,SLOT(procStopped(int, QProcess::ExitStatus)));
             connect(proc, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdout()));
             proc->setWorkingDirectory(path+"/");
