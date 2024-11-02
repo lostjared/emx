@@ -33,7 +33,7 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     gfx_box = new QComboBox(this);
     gfx_box->setGeometry(75, 55, 200, 25);
 
-    gfx_box->addItem(QDir::currentPath() + "/scroller/assets/img/level.gfx");
+    gfx_box->addItem(QDir::currentPath() + "/assets/img/level.gfx");
     gfx_box->setCurrentIndex(0);
 
     page_new_gfx = new QPushButton(tr("New"), this);
@@ -59,7 +59,7 @@ NewWindow::NewWindow(game::Level *lvl, QWidget *parent) : QDialog(parent), level
     lbl_bg_name->setGeometry(25, 140, 120, 25);
 
     page_background = new QLineEdit(this);
-    page_background->setText(QDir::currentPath() + "/../img/backgrounds/bg1.bmp");
+    page_background->setText(QDir::currentPath() + "/assets/img/backgrounds/bg1.bmp");
     page_background->setGeometry(125, 140, 200, 25);
 
 }
