@@ -2,7 +2,7 @@
 #include<iostream>
 #include<string>
 #include<sys/stat.h>
-#include "../src/gfx_file.hpp"
+#include "gfx_file.hpp"
 #include<unistd.h>
 
 int main(int argc, char **argv) {
