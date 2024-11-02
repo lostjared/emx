@@ -641,8 +641,7 @@ void MainWindow::runExec() {
         if(proc_run == false) {
             proc = new QProcess(this);
             QStringList args;
-            static game::Point p[] = { game::Point(640, 360), game::Point(1280, 720), game::Point(1920, 1080), game::Point(3840, 2160) };
-            args << "-p " << (QDir::currentPath() + "/assets") << "-l " << file_name << "-g " << graphics_file << "-b " << run_window->exec_bg->text();
+            args << "-p " << (QDir::currentPath() + "/assets") << " -l " << file_name << " -g " << graphics_file << " -b " << run_window->exec_bg->text();
             QStringList argsx;
             QString coord_str;
             QTextStream stream(&coord_str);
