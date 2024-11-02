@@ -18,7 +18,7 @@
 #include"about_window.hpp"
 #include"pref_window.hpp"
 #include"export_window.hpp"
-#include "../level.hpp"
+#include "level.hpp"
 
 const int MAP_WIDTH=1280/16;
 const int MAP_HEIGHT=720/16;

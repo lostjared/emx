@@ -4,7 +4,7 @@
 #include<QComboBox>
 #include<QPushButton>
 #include<QFileDialog>
-#include"../level.hpp"
+#include"level.hpp"
 
 // About Window constructor - (init)
 ExportWindow::ExportWindow(QWidget *parent) : QDialog(parent) {

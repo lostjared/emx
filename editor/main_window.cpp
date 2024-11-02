@@ -10,7 +10,7 @@
 #include<QMessageBox>
 #include<QProcess>
 #include<QThread>
-#include "../gfx_file.hpp"
+#include "gfx_file.hpp"
 
 // constructor - (window init)
 MainWindow::MainWindow() {

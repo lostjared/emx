@@ -7,7 +7,7 @@
 #include<QComboBox>
 #include<QLabel>
 #include<QSpinBox>
-#include "../level.hpp"
+#include "level.hpp"
 
 class MainWindow;
 

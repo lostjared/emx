@@ -4,7 +4,7 @@
 
 TEMPLATE = app
 TARGET = editor
-INCLUDEPATH += .
+INCLUDEPATH += . /usr/local/include/emx
 QT += widgets gui
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -13,6 +13,7 @@ QT += widgets gui
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 RESOURCES += resources.qrc
+LIBS += -L/usr/local/lib -lemx
 # Input
-HEADERS += main_window.hpp new_window.hpp tool_window.hpp run_window.hpp debug_window.hpp gfx_window.hpp open_window.hpp about_window.hpp pref_window.hpp export_window.hpp version_info.hpp ../level.hpp ../gfx_file.hpp
-SOURCES += main.cpp main_window.cpp new_window.cpp tool_window.cpp run_window.cpp debug_window.cpp gfx_window.cpp open_window.cpp about_window.cpp pref_window.cpp export_window.cpp ../level.cpp ../gfx_file.cpp
+HEADERS += main_window.hpp new_window.hpp tool_window.hpp run_window.hpp debug_window.hpp gfx_window.hpp open_window.hpp about_window.hpp pref_window.hpp export_window.hpp version_info.hpp 
+SOURCES += main.cpp main_window.cpp new_window.cpp tool_window.cpp run_window.cpp debug_window.cpp gfx_window.cpp open_window.cpp about_window.cpp pref_window.cpp export_window.cpp 
