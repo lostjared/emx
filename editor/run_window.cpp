@@ -13,7 +13,7 @@ RunWindow::RunWindow(QWidget *parent) : QDialog(parent) {
     exec_path = new QLineEdit(this);
     exec_path->setGeometry(50, 10, 330, 20);
     
-    exec_path->setText(QDir::currentPath()+"/..");
+    exec_path->setText(QDir::currentPath());
     QLabel *lbl_res = new QLabel(tr("Resolution: "), this);
     lbl_res->setGeometry(10, 40, 100, 25);
     exec_res = new QComboBox(this);
@@ -27,7 +27,7 @@ RunWindow::RunWindow(QWidget *parent) : QDialog(parent) {
     lbl_bg->setGeometry(10, 80, 100, 25);
     exec_bg = new QLineEdit(this);
     exec_bg->setGeometry(100, 80, 400-115, 25);
-    exec_bg->setText(QDir::currentPath() + "../scroller/assets/img/backgrounds/bg1.bmp");
+    exec_bg->setText(QDir::currentPath() + "/assets/img/backgrounds/bg1.bmp");
 }
 // set main window parent
 void RunWindow::setMainWindow(MainWindow *main) {
