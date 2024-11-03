@@ -1,3 +1,4 @@
+#include"SDL.h"
 #define VERSION_INFO "v0.1.0"
 #include<iostream>
 #include<string>
@@ -50,7 +51,11 @@ int main(int argc, char **argv) {
         game::GfxExtract ex;
         game::GfxTable table;
         if(ex.open(input)) {
+#ifndef _WIN32
             mkdir(output.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+#else
+	    mkdir(output.c_str());
+#endif
             if(ex.extract(table, output)) {
                 std::cout << argv[0] << ": Successflly Inflated: " << argv[1] << "\n";
             } else {
