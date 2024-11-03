@@ -1,4 +1,6 @@
+#ifdef _WIN32
 #include"SDL.h"
+#endif
 #define VERSION_INFO "v0.1.0"
 #include<iostream>
 #include<string>
