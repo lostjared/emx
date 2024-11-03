@@ -58,7 +58,7 @@ find_package(SDL2_ttf REQUIRED)
 # Print the found library and include paths to verify
 #message(STATUS "SDL2_TTF_LIBRARY = ${SDL2_TTF_LIBRARY}")
 message(STATUS "SDL2_TTF_INCLUDE_DIRS = ${SDL2_TTF_INCLUDE_DIRS}")
-
+message(STATUS "SDL Libs: = ${SDL2_LIBRARIES}")
 # Include SDL2 and SDL2_ttf headers
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
@@ -115,16 +115,14 @@ add_custom_target(uninstallddd
 set(SCROLLER_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/scroller/main.cpp)
 
 add_executable(gfx-cmp ${CMAKE_CURRENT_SOURCE_DIR}/gfx/gfx_main.cpp)
-target_link_libraries(gfx-cmp emxShared)
+target_link_libraries(gfx-cmp ${SDL2_LIBRARIES} emxShared)
 install(TARGETS gfx-cmp RUNTIME DESTINATION bin)
 add_executable(lvl-convert ${CMAKE_CURRENT_SOURCE_DIR}/convert/main.cpp)
-target_link_libraries(lvl-convert emxShared)
+target_link_libraries(lvl-convert ${SDL2_LIBRARIES} emxShared)
 install(TARGETS lvl-convert RUNTIME DESTINATION bin)  
 # Add executable target for scroller
 add_executable(scroller ${SCROLLER_SOURCE})
-
 # Link scroller to emxShared, SDL2, and SDL2_ttf
-target_link_libraries(scroller emxShared ${SDL2_LIBRARIES} SDL2_ttf::SDL2_ttf)
-
+target_link_libraries(scroller ${SDL2_LIBRARIES} emxShared)
 # Specify include directories for scroller (for SDL2, SDL2_ttf, and emx headers)
 target_include_directories(scroller PRIVATE ${SDL2_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
