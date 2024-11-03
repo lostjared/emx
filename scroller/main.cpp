@@ -1,4 +1,6 @@
+#ifdef _WIN32
 #include"SDL.h"
+#endif
 #include"version.hpp"
 #include"window.hpp"
 #include"game_level.hpp"
