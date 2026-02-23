@@ -1,12 +1,13 @@
 #ifdef _WIN32
 #include"SDL.h"
 #endif
+#include<cstdint>
 #include"version.hpp"
 #include"window.hpp"
 #include"game_level.hpp"
 #include<iostream>
 #include"argz.hpp"
-
+#include<string>
 
 int main(int argc, char **argv) {
 
@@ -14,7 +15,8 @@ int main(int argc, char **argv) {
 
     std::cout << argv[0] << " v" << GAME_VERSION << " (C) 2024 LostSideDead Software\n";
     int width = 1280-16, height = 720-16;
-    
+    std::string def_level, background, gfx_file;
+    game::GameLevel level;
 #ifndef FOR_WASM
     Argz<std::string> argz(argc, argv);
     argz.addOptionSingleValue('r', "resolution ex 1280x720")
@@ -23,12 +25,7 @@ int main(int argc, char **argv) {
     .addOptionSingleValue ('b',"background image")
     .addOptionSingleValue('g', "Graphics Package")
     .addOptionSingleValue('p', "path");
-
-    std::string def_level, background, gfx_file;
     int value = 0;
-
-    game::GameLevel level;
-    
 
     Argument<std::string> arg;
     try {
