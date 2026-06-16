@@ -35,8 +35,8 @@ namespace game {
             release_images();
             release_joysticks();
             std::cout << "game: SDL2 Shutdown...\n";
-            TTF_Quit();
-            SDL_Quit();
+//            TTF_Quit();
+//            SDL_Quit();
          }
 
         // release the joysticks if initalized
@@ -394,5 +394,12 @@ namespace game {
         current_object->release(&render_object);
 
         return EXIT_SUCCESS;
+    }
+
+    void Window::quit() {
+	    if(TTF_WasInit())
+		    TTF_Quit();
+	    if(SDL_WasInit(SDL_INIT_VIDEO || SDL_INIT_JOYSTICK))
+		    SDL_Quit();
     }
 }
