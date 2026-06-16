@@ -72,8 +72,9 @@ int main(int argc, char **argv) {
     }
 
     if(assets_path.empty()) {
-        std::cerr<< "Game: requires assets path...\n";
-        exit(EXIT_FAILURE);
+        assets_path = "assets";
+        level.assets_path = assets_path;
+        std::cout << "Using default assets path: " << assets_path << "\n";
     }
 
 

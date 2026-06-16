@@ -1,104 +1,76 @@
 cmake_minimum_required(VERSION 3.10)
 
-# Project name
-project(emx)
+project(emx LANGUAGES CXX)
 
-# Require C++20
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Add compiler flags for optimization and warnings
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 add_compile_options(-O2 -Wall -pedantic)
 
-# Source files and headers in the src/ subdirectory with full paths
+set(EMX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/camera.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/game.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/game_level.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx_data.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx_file.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/level.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/object.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/particles.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/star_field.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/window.cpp
+    ${EMX_SOURCE_DIR}/camera.cpp
+    ${EMX_SOURCE_DIR}/game.cpp
+    ${EMX_SOURCE_DIR}/game_level.cpp
+    ${EMX_SOURCE_DIR}/gfx_data.cpp
+    ${EMX_SOURCE_DIR}/gfx_file.cpp
+    ${EMX_SOURCE_DIR}/level.cpp
+    ${EMX_SOURCE_DIR}/object.cpp
+    ${EMX_SOURCE_DIR}/particles.cpp
+    ${EMX_SOURCE_DIR}/star_field.cpp
+    ${EMX_SOURCE_DIR}/window.cpp
 )
 
-# Header files in the src/ directory with full paths (using .hpp)
 set(HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/camera.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/game.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/game_level.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx_data.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/gfx_file.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/level.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/object.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/particles.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/star_field.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/version.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/window_const.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/window.hpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/argz.hpp
+    ${EMX_SOURCE_DIR}/camera.hpp
+    ${EMX_SOURCE_DIR}/game.hpp
+    ${EMX_SOURCE_DIR}/game_level.hpp
+    ${EMX_SOURCE_DIR}/gfx_data.hpp
+    ${EMX_SOURCE_DIR}/gfx_file.hpp
+    ${EMX_SOURCE_DIR}/level.hpp
+    ${EMX_SOURCE_DIR}/object.hpp
+    ${EMX_SOURCE_DIR}/particles.hpp
+    ${EMX_SOURCE_DIR}/star_field.hpp
+    ${EMX_SOURCE_DIR}/version.hpp
+    ${EMX_SOURCE_DIR}/window_const.hpp
+    ${EMX_SOURCE_DIR}/window.hpp
+    ${EMX_SOURCE_DIR}/argz.hpp
 )
 
-# Find SDL2 and SDL2_ttf packages
 find_package(SDL2 REQUIRED)
 find_package(SDL2_ttf REQUIRED)
-# Find SDL2_ttf library and include paths
-#find_library(SDL2_TTF_LIBRARY NAMES SDL2_ttf PATHS /usr/lib /usr/local/lib)
-#find_path(SDL2_TTF_INCLUDE_DIR SDL_ttf.h PATHS /usr/include/SDL2 /usr/local/include/SDL2)
 
-# Set SDL2_TTF_INCLUDE_DIRS if found
-#if(SDL2_TTF_INCLUDE_DIR)
-#    set(SDL2_TTF_INCLUDE_DIRS ${SDL2_TTF_INCLUDE_DIR})
-#    message(STATUS "SDL2_TTF_INCLUDE_DIRS = ${SDL2_TTF_INCLUDE_DIRS}")
-#else()
-#    message(FATAL_ERROR "SDL2_ttf headers not found!")
-#endif()
-# Print the found library and include paths to verify
-#message(STATUS "SDL2_TTF_LIBRARY = ${SDL2_TTF_LIBRARY}")
-message(STATUS "SDL2_TTF_INCLUDE_DIRS = ${SDL2_TTF_INCLUDE_DIRS}")
-message(STATUS "SDL Libs: = ${SDL2_LIBRARIES}")
-# Include SDL2 and SDL2_ttf headers
-include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-# Create static library and name it libemx.a
 add_library(emxStatic STATIC ${SOURCES})
 set_target_properties(emxStatic PROPERTIES OUTPUT_NAME "emx")
+target_include_directories(emxStatic PUBLIC ${EMX_SOURCE_DIR})
+target_link_libraries(emxStatic PRIVATE ${SDL2_LIBRARIES} SDL2_ttf::SDL2_ttf)
 
-# Create shared library and name it libemx.so
 add_library(emxShared SHARED ${SOURCES})
 set_target_properties(emxShared PROPERTIES OUTPUT_NAME "emx")
+target_include_directories(emxShared PUBLIC ${EMX_SOURCE_DIR})
+target_link_libraries(emxShared PRIVATE ${SDL2_LIBRARIES} SDL2_ttf::SDL2_ttf)
 
-# Link SDL2 and SDL2_ttf with the emx libraries
-target_link_libraries(emxStatic ${SDL2_LIBRARIES} SDL2_ttf::SDL2_ttf)
-target_link_libraries(emxShared ${SDL2_LIBRARIES} SDL2_ttf::SDL2_ttf)
-
-# Install header files to include/emx (using .hpp files)
 install(FILES ${HEADERS} DESTINATION include/emx)
-
-# Install libraries to lib directory
 install(TARGETS emxStatic emxShared
-    ARCHIVE DESTINATION lib  # For static library (.a)
-    LIBRARY DESTINATION lib  # For shared library (.so)
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
 )
 
-# Generate the emxConfig.cmake file for other projects
 include(CMakePackageConfigHelpers)
-
-# Configure and generate the config file for the library
 configure_package_config_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/emxConfig.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/emxConfig.cmake"
     INSTALL_DESTINATION lib/cmake/emx
 )
-
-# Install the config file
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/emxConfig.cmake"
     DESTINATION lib/cmake/emx
 )
 
-# Add uninstall target
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
     "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
@@ -109,20 +81,36 @@ add_custom_target(uninstallddd
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
 )
 
-# ----- Second target for the scroller executable -----
-
-# Source file for scroller
 set(SCROLLER_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/scroller/main.cpp)
 
 add_executable(gfx-cmp ${CMAKE_CURRENT_SOURCE_DIR}/gfx/gfx_main.cpp)
-target_link_libraries(gfx-cmp ${SDL2_LIBRARIES} emxShared)
+target_link_libraries(gfx-cmp PRIVATE ${SDL2_LIBRARIES} emxShared)
 install(TARGETS gfx-cmp RUNTIME DESTINATION bin)
+
 add_executable(lvl-convert ${CMAKE_CURRENT_SOURCE_DIR}/convert/main.cpp)
-target_link_libraries(lvl-convert ${SDL2_LIBRARIES} emxShared)
-install(TARGETS lvl-convert RUNTIME DESTINATION bin)  
-# Add executable target for scroller
+target_link_libraries(lvl-convert PRIVATE ${SDL2_LIBRARIES} emxShared)
+install(TARGETS lvl-convert RUNTIME DESTINATION bin)
+
 add_executable(scroller ${SCROLLER_SOURCE})
-# Link scroller to emxShared, SDL2, and SDL2_ttf
-target_link_libraries(scroller ${SDL2_LIBRARIES} emxShared)
-# Specify include directories for scroller (for SDL2, SDL2_ttf, and emx headers)
-target_include_directories(scroller PRIVATE ${SDL2_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(scroller PRIVATE ${EMX_SOURCE_DIR})
+target_link_libraries(scroller PRIVATE ${SDL2_LIBRARIES} emxShared)
+
+set(SCROLLER_ASSET_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/scroller/assets)
+set(SCROLLER_ASSET_DEST ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets)
+add_custom_target(scroller_assets ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${SCROLLER_ASSET_SOURCE}
+            ${SCROLLER_ASSET_DEST}
+    COMMENT "Copying scroller assets to the build directory"
+)
+add_dependencies(scroller scroller_assets)
+
+add_subdirectory(editor)
+
+if(TARGET editor)
+    set_target_properties(editor PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
+    )
+endif()
